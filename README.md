@@ -21,7 +21,12 @@ Lastly, there is a prebuilt image available on [Docker Hub](https://registry.hub
 
 ## How to use
 
-1. Build it:
+1. [Install Docker for your system](https://docs.docker.com/installation/)
+
+For Ubuntu trusty 14.04, just do `wget -qO- https://get.docker.com/ | sh`
+
+
+2. Build it from source:
 
 `./build.sh`
 
@@ -29,7 +34,12 @@ You will get prompted to password protect the ssh key used to connect to the con
 
 *NOTE*: You should use your junk steam account, or [create one if you haven't already and start using it for your dedicated server instances.](https://developer.valvesoftware.com/wiki/SteamCMD#SteamCMD_Login)
 
-2. Run it:
+or docker pull it:
+
+`docker pull adamveld12/arma3`
+
+
+3. Run it:
 
 `./run.sh`
 
@@ -41,7 +51,7 @@ You can reuse the same data and restart the server by using `./run.sh` and givin
 
 *NOTE*: I will include a guide on how to run multiple instances on one machine at a later time.
 
-After you run this container you can check if your server is running by [using the server browser by BIS](http://master.bistudio.com/?page=1&count=10&game_id=6)
+After you start a new container one easy way that you can check if your server is running is by [using the server browser by BIS](http://master.bistudio.com/?page=1&count=10&game_id=6) (make sure to add your server's IP and steam query port so that the browser knows about your server)
 
 The server is ran inside of a tmux session under the steam user. The steam user has limited access to the file system and is mostly locked down to the /home/steam directory. If you would like to access the server then you can ssh in, run `su steam` and `tmux attach` to get to the running server.
 
