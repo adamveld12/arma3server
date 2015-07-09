@@ -1,0 +1,4 @@
+#!/bin/bash
+cd /home/steam
+su -c "tmux new-session -d -s \"Arma 3 Server\" -n \"Arma 3 Dedicated Server Instance\" /home/steam/startserver" steam
+/usr/sbin/sshd -D

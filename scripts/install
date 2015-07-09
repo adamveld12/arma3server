@@ -1,0 +1,2 @@
+#!/bin/bash
+/home/steam/steamcmd/steamcmd.sh +login $STEAMUSER $STEAMPASS +force_install_dir /home/steam +app_update $GAMEID validate +exit
