@@ -2,9 +2,6 @@ debug.sh
 run.sh
 build.sh
 startcontainer.sh
-credentials
 Dockerfile
 README.md
 ./keys/id_rsa
-./profiles/*
-./configuration/*
