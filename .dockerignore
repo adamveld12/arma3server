@@ -1,7 +1,7 @@
-debug.sh
-run.sh
-build.sh
-startcontainer.sh
-Dockerfile
-README.md
+./debug.sh
+./run.sh
+./build.sh
+./README.md
 ./keys/id_rsa
+./.gitignore
+./.git/
