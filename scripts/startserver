@@ -1,2 +1,2 @@
 #!/bin/bash
-./arma3server -netlog -profiles=/profiles -name=server -cfg=/configuration/basic.cfg -config=/configuration/server.cfg -bepath=/configuration/BattleEye -mod=
+./arma3server -netlog -profiles=/profiles -name=server -cfg=/configuration/basic.cfg -config=/configuration/server.cfg -mod=
