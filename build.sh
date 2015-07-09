@@ -17,9 +17,9 @@ fi
 if [[ ! -f ./credentials.sh ]]; then
   steamuser=""
   steampass=""
-  echo "Steam account username? [ENTER]:"
+  echo -n "Steam account username? [ENTER]:"
   read -e steamuser
-  echo "Steam account password? [ENTER]:"
+  echo -n "Steam account password? [ENTER]:"
   read -e steampass
   echo -e "#!/bin/bash\nexport STEAMUSER=\"${steamuser}\"\nexport STEAMPASS=\"${steampass}\"" > ./credentials.sh
   chmod +x ./credentials.sh
