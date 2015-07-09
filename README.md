@@ -29,23 +29,15 @@ You will get prompted to password protect the ssh key used to connect to the con
 
 *NOTE*: You should use your junk steam account, or [create one if you haven't already and start using it for your dedicated server instances.](https://developer.valvesoftware.com/wiki/SteamCMD#SteamCMD_Login)
 
-2. Run it like this:
+2. Run it:
 
-```sh
-docker run -itd \
-  --env-file credentials \
-  -p 2302-2305:2302-2305/udp \
-  -p 2344-2345:2344-2345/udp -p 2344-2345:2344-2345/tcp \
-  -p 8766:8766/udp -p 27016:27016/udp \
-  -p 2222:22 \
-  -v $PWD/configuration:/configuration \
-  -v $PWD/profiles:/profiles \
-  adamveld12/arma3 
-```
+`./run.sh`
 
-or use one of the several shortcut shell scripts
+This prompts you for a name and [sets up a data container](http://container42.com/2013/12/16/persistent-volumes-with-docker-container-as-volume-pattern/) to hold your mods, mpmissions and configuration settings. Next, an arma3 server container is created and ran, using the volumes from the data container as data storage. The script links the volumes from the data container to the server, allowing you to edit configurations and mods without losing your changes.
 
-From here, you should see your container show up in the server browser after a few seconds. Make sure to edit the configuration files to your liking, they will persist between runs.
+From here, you should see your game show up in the server browser after a few seconds. Make sure to edit the configuration files to your liking, they will persist between runs.
+
+You can reuse the same data and restart the server by using `./run.sh` and giving the same name for the data container. It will give you a yes/no prompt asking if you want to overwrite the old data with a new fresh configuration.
 
 *NOTE*: I will include a guide on how to run multiple instances on one machine at a later time.
 
@@ -56,4 +48,4 @@ The server is ran inside of a tmux session under the steam user. The steam user 
 
 ## Default Settings
 
-For the most part you get the server setup with pretty decent defaults. Verify signatures=2, battle eye enabled, and some networking tweaks in the basic.cfg to name a few. The admin RCON is disabled, but the battle eye password SHOULD be changed after running the server once. 
+For the most part you get the server setup with pretty decent defaults. Verify signatures=2, battle eye enabled, and some networking tweaks in the basic.cfg to name a few. The admin RCON is disabled and so is the server password.
