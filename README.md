@@ -1,6 +1,6 @@
 # Arma 3 Dedicated Server Docker Setup
 
-This is a dockerfile for running an Arma 3 dedicated server.
+This is a dockerfile for running an Arma 3 dedicated server. It supports mods, SSH and persistent configuration via volumes.
 
 This container has an ssh server set up and listening on container port 22. This should allow you to ssh in and do anything you may need to do inside of the container remotely without having to tear it down and start it up again.
 
@@ -18,6 +18,7 @@ There are a few volumes set up in this container:
 `/home/steam/mods`: Mods
 
 Lastly, there is a prebuilt image available on [Docker Hub](https://registry.hub.docker.com/u/adamveld12/arma3/).
+
 
 ## How to use
 
@@ -38,24 +39,55 @@ or docker pull it:
 
 `docker pull adamveld12/arma3`
 
-
 3. Run it:
 
-`./run.sh`
+`./run.sh` 
 
 This prompts you for a name and [sets up a data container](http://container42.com/2013/12/16/persistent-volumes-with-docker-container-as-volume-pattern/) to hold your mods, mpmissions and configuration settings. Next, an arma3 server container is created and ran, using the volumes from the data container as data storage. The script links the volumes from the data container to the server, allowing you to edit configurations and mods without losing your changes.
 
 From here, you should see your game show up in the server browser after a few seconds. Make sure to edit the configuration files to your liking, they will persist between runs.
 
-You can reuse the same data and restart the server by using `./run.sh` and giving the same name for the data container. It will give you a yes/no prompt asking if you want to overwrite the old data with a new fresh configuration.
+You can reuse the same data and restart the server by using `./run.sh` and giving the same name for the data container. It will give you a yes/no prompt asking if you want to overwrite the old data with a new fresh configuration. 
 
-*NOTE*: I will include a guide on how to run multiple instances on one machine at a later time.
 
 After you start a new container one easy way that you can check if your server is running is by [using the server browser by BIS](http://master.bistudio.com/?page=1&count=10&game_id=6) (make sure to add your server's IP and steam query port so that the browser knows about your server)
 
 The server is ran inside of a tmux session under the steam user. The steam user has limited access to the file system and is mostly locked down to the /home/steam directory. If you would like to access the server then you can ssh in, run `su steam` and `tmux attach` to get to the running server.
 
 
+## Installing missions
+
+You just need to get your missions/scenarios into the /home/steam/mpmissions volume some how, and below are a couple of ways of doing that.
+
+1. With SSH
+
+  You can SCP missions into /home/steam/mpmissions like so:
+
+  `scp -i ./keys/id_rsa -p 2222 ./my_mission.Altis.pbo root@localhost:/home/steam/mpmissions/my_mission.Altis.pbo`
+
+  You can also use globs to speed things up:
+
+  `scp -i ./keys/id_rsa -p 2222 ./*.pbo root@localhost:/home/steam/mpmissions/`
+
+2. Locate and copy into the volume folders
+
+  Find the volumes in use by doing:
+
+  `docker inspect data-arma3 | grep "var/lib/docker/*/_data"`
+
+  and then copy them into the path that maps to the /home/steam/mpmissions folder. Then make sure to edit your map rotations/whitelist in the server.cfg and you should be all set.
+
+
+## Installing mods 
+
+To be written.
+
+
+## Running multiple instances
+
+*NOTE*: I will include a guide on how to run multiple instances on one machine at a later time.
+
+
 ## Default Settings
 
-For the most part you get the server setup with pretty decent defaults. Verify signatures=2, battle eye enabled, and some networking tweaks in the basic.cfg to name a few. The admin RCON is disabled and so is the server password.
+For the most part you get the server setup with pretty decent defaults. Verify signatures=2, battle eye enabled, and some networking tweaks in the basic.cfg to name a few. The admin RCON is disabled and so is the server password. I have taken some steps to harden the ssh server against outside intrusion, and you can see the base image used [here](https://github.com/adamveld12/ssh-server)
