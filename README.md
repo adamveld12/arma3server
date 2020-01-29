@@ -80,8 +80,42 @@ You just need to get your missions/scenarios into the /home/steam/mpmissions vol
 
 ## Installing mods 
 
-To be written.
+*NOTE*: Might need 'unzip'
 
+Best way to achieve this is if you use the
+
+'scp' 
+
+To do so, you would:
+
+1. Copy it to a local mod
+
+  From the BIA launcher you would copy it as a local mod
+
+  Place it into a location that is convenient for you
+
+  Grab the mod(s) and zip them to a 'Mods.zip'
+
+2. Move it to Docker
+
+  Pulling up a terminal with in the Mods.zip file
+
+  You would: 
+
+  'scp -i ./key/id_rsa -p 2222 ./Mods.zip root@localhost:/home/steam/mods'
+  
+  And might have to wait, based on the size of the file
+  
+3. Extract the Mods.zip
+  
+  From here on you would SSH into the server and run the command:
+  
+  'unzip Mods.zip'
+  
+4. Configure Server .conf
+
+  This would either be in the 'basic.conf' or the 'server.conf'
+  
 
 ## Running multiple instances
 
